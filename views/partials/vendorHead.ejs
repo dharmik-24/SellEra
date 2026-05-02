@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Dashboard - SellEra</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#faf5ff', 100: '#f3e8ff', 200: '#e9d5ff', 300: '#d8b4fe',
+                            400: '#c084fc', 500: '#a855f7', 600: '#9333ea', 700: '#7c3aed',
+                            800: '#6b21a8', 900: '#581c87', 950: '#3b0764',
+                        },
+                        secondary: {
+                            50: '#f8fafc', 100: '#f1f5f9', 200: '#e2e8f0', 300: '#cbd5e1',
+                            400: '#94a3b8', 500: '#64748b', 600: '#475569', 700: '#334155',
+                            800: '#1e293b', 900: '#0f172a', 950: '#020617',
+                        },
+                        accent: {
+                            50: '#fef3f2', 100: '#fee4e2', 200: '#fececa', 300: '#fda4a5',
+                            400: '#fb7185', 500: '#f43f5e', 600: '#e11d48', 700: '#be123c',
+                            800: '#9f1239', 900: '#881337', 950: '#4c0519',
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Raleway', 'system-ui', 'sans-serif'],
+                        'display': ['Raleway', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .sidebar-link.active {
+            background: linear-gradient(135deg, #c084fc 0%, #9333ea 100%);
+            color: white;
+        }
+
+        .sidebar-link:hover {
+            background-color: #d8b4fe;
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="bg-neutral-50 font-sans">
+    <!-- Vendor Dashboard Layout -->
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="hidden lg:flex lg:flex-shrink-0">
+            <div class="flex flex-col w-64 bg-white border-r border-neutral-200">
+                <!-- Logo -->
+                <div
+                    class="flex items-center justify-center h-16 px-4 bg-gradient-to-r from-primary-600 to-primary-700">
+                    <a href="/vendors/home" class="flex items-center space-x-2 text-white font-bold text-xl">
+                        <span class="text-2xl">🛍️</span>
+                        <span class="font-display">SellEra</span>
+                        <span class="text-sm bg-white/20 px-2 py-1 rounded-full">Vendor</span>
+                    </a>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="flex-1 px-4 py-6 space-y-2">
+                    <a href="/vendors/home"
+                        class="sidebar-link flex items-center space-x-3 px-4 py-3 text-neutral-700 rounded-lg transition-all duration-200">
+                        <i class="ri-dashboard-line text-xl"></i>
+                        <span class="font-medium">Dashboard</span>
+                    </a>
+
+                    <a href="/vendors/products"
+                        class="sidebar-link flex items-center space-x-3 px-4 py-3 text-neutral-700 rounded-lg transition-all duration-200">
+                        <i class="ri-shopping-bag-line text-xl"></i>
+                        <span class="font-medium">Products</span>
+                    </a>
+
+                    <a href="/vendors/orders"
+                        class="sidebar-link flex items-center space-x-3 px-4 py-3 text-neutral-700 rounded-lg transition-all duration-200">
+                        <i class="ri-file-list-line text-xl"></i>
+                        <span class="font-medium">Orders</span>
+                    </a>
+
+                    <a href="/vendors/reviews"
+                        class="sidebar-link flex items-center space-x-3 px-4 py-3 text-neutral-700 rounded-lg transition-all duration-200">
+                        <i class="ri-star-line text-xl"></i>
+                        <span class="font-medium">Reviews</span>
+                    </a>
+
+                    <div class="pt-4 border-t border-neutral-200 mt-4">
+                        <a href="/vendors/settings"
+                            class="sidebar-link flex items-center space-x-3 px-4 py-3 text-neutral-700 rounded-lg transition-all duration-200">
+                            <i class="ri-user-settings-line text-xl"></i>
+                            <span class="font-medium">Profile</span>
+                        </a>
+
+                        <a href="/"
+                            class="sidebar-link flex items-center space-x-3 px-4 py-3 text-neutral-700 rounded-lg transition-all duration-200">
+                            <i class="ri-store-line text-xl"></i>
+                            <span class="font-medium">View Store</span>
+                        </a>
+                    </div>
+                </nav>
+
+                <!-- Logout -->
+                <div class="p-4 border-t border-neutral-200">
+                    <a href="/vendors/logout"
+                        class="flex items-center space-x-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg transition-all duration-200">
+                        <i class="ri-logout-circle-line text-xl"></i>
+                        <span class="font-medium">Logout</span>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Top Navigation -->
+            <header class="bg-white border-b border-neutral-200 px-4 py-4 lg:px-6">
+                <div class="flex items-center justify-between">
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button"
+                        class="lg:hidden text-neutral-600 hover:text-neutral-900 focus:outline-none">
+                        <i class="ri-menu-line text-2xl"></i>
+                    </button>
+
+                    <!-- Page Title (will be set by individual pages) -->
+                    <div class="hidden lg:block">
+                        <h1 id="page-title" class="text-2xl font-bold text-neutral-900">Dashboard</h1>
+                    </div>
+
+                    <!-- User Menu -->
+                    <div class="flex items-center space-x-4">
+                        <!-- Notifications -->
+                        <button class="relative p-2 text-neutral-600 hover:text-neutral-900 focus:outline-none">
+                            <i class="ri-notification-line text-xl"></i>
+                            <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full"></span>
+                        </button>
+
+                        <!-- User Profile -->
+                        <div class="flex items-center space-x-3">
+                            <div class="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center">
+                                <i class="ri-user-line text-white"></i>
+                            </div>
+                            <span class="hidden md:block text-sm font-medium text-neutral-700">Vendor</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Mobile Sidebar Overlay -->
+            <div id="mobile-sidebar" class="fixed inset-0 z-50 lg:hidden hidden">
+                <div class="fixed inset-0 bg-black/50" id="mobile-sidebar-overlay"></div>
+                <div class="fixed left-0 top-0 bottom-0 w-64 bg-white transform -translate-x-full transition-transform duration-300"
+                    id="mobile-sidebar-panel">
+                    <!-- Mobile Logo -->
+                    <div
+                        class="flex items-center justify-between h-16 px-4 bg-gradient-to-r from-primary-600 to-primary-700">
+                        <a href="/vendors/home" class="flex items-center space-x-2 text-white font-bold text-xl">
+                            <span class="text-2xl">🛍️</span>
+                            <span class="font-display">SellEra</span>
+                        </a>
+                        <button id="mobile-sidebar-close" class="text-white hover:text-primary-200">
+                            <i class="ri-close-line text-xl"></i>
+                        </button>
+                    </div>
+
+                    <!-- Mobile Navigation -->
+                    <nav class="flex-1 px-4 py-6 space-y-2">
+                        <a href="/vendors/home"
+                            class="sidebar-link flex items-center space-x-3 px-4 py-3 text-neutral-700 rounded-lg">
+                            <i class="ri-dashboard-line text-xl"></i>
+                            <span class="font-medium">Dashboard</span>
+                        </a>
+                        <a href="/vendors/products"
+                            class="sidebar-link flex items-center space-x-3 px-4 py-3 text-neutral-700 rounded-lg">
+                            <i class="ri-shopping-bag-line text-xl"></i>
+                            <span class="font-medium">Products</span>
+                        </a>
+                        <a href="/vendors/orders"
+                            class="sidebar-link flex items-center space-x-3 px-4 py-3 text-neutral-700 rounded-lg">
+                            <i class="ri-file-list-line text-xl"></i>
+                            <span class="font-medium">Orders</span>
+                        </a>
+                        <a href="/vendors/reviews"
+                            class="sidebar-link flex items-center space-x-3 px-4 py-3 text-neutral-700 rounded-lg">
+                            <i class="ri-star-line text-xl"></i>
+                            <span class="font-medium">Reviews</span>
+                        </a>
+                        <a href="/vendors/settings"
+                            class="sidebar-link flex items-center space-x-3 px-4 py-3 text-neutral-700 rounded-lg">
+                            <i class="ri-user-settings-line text-xl"></i>
+                            <span class="font-medium">Profile</span>
+                        </a>
+                        <a href="/"
+                            class="sidebar-link flex items-center space-x-3 px-4 py-3 text-neutral-700 rounded-lg">
+                            <i class="ri-store-line text-xl"></i>
+                            <span class="font-medium">View Store</span>
+                        </a>
+                        <a href="/vendors/logout"
+                            class="sidebar-link flex items-center space-x-3 px-4 py-3 text-red-600 rounded-lg">
+                            <i class="ri-logout-circle-line text-xl"></i>
+                            <span class="font-medium">Logout</span>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Page Content -->
+            <main class="flex-1 overflow-auto bg-neutral-50">
+                <div class="p-4 lg:p-6">
+
+                    <script>
+                        // Mobile menu functionality
+                        const mobileMenuButton = document.getElementById('mobile-menu-button');
+                        const mobileSidebar = document.getElementById('mobile-sidebar');
+                        const mobileSidebarPanel = document.getElementById('mobile-sidebar-panel');
+                        const mobileSidebarOverlay = document.getElementById('mobile-sidebar-overlay');
+                        const mobileSidebarClose = document.getElementById('mobile-sidebar-close');
+
+                        function openMobileSidebar() {
+                            mobileSidebar.classList.remove('hidden');
+                            setTimeout(() => {
+                                mobileSidebarPanel.classList.remove('-translate-x-full');
+                            }, 10);
+                        }
+
+                        function closeMobileSidebar() {
+                            mobileSidebarPanel.classList.add('-translate-x-full');
+                            setTimeout(() => {
+                                mobileSidebar.classList.add('hidden');
+                            }, 300);
+                        }
+
+                        mobileMenuButton.addEventListener('click', openMobileSidebar);
+                        mobileSidebarOverlay.addEventListener('click', closeMobileSidebar);
+                        mobileSidebarClose.addEventListener('click', closeMobileSidebar);
+
+                        // Set active sidebar link based on current page
+                        const currentPath = window.location.pathname;
+                        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+                        sidebarLinks.forEach(link => {
+                            if (link.getAttribute('href') === currentPath) {
+                                link.classList.add('active');
+                            }
+                        });
+                    </script>

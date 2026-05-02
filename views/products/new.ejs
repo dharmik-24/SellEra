@@ -1,0 +1,358 @@
+<%- include('../partials/vendorHead.ejs') %>
+
+    <script>
+        setPageTitle('Add New Product');
+    </script>
+
+    <!-- Add New Product Content -->
+    <div class="space-y-6">
+        <!-- Page Header -->
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-bold text-neutral-900">Add New Product</h1>
+                <p class="text-neutral-600 mt-1">Create a new product listing for your store</p>
+            </div>
+            <a href="/vendors/products"
+                class="inline-flex items-center space-x-2 text-neutral-600 hover:text-primary-600 font-medium transition-colors duration-200">
+                <i class="ri-arrow-left-line"></i>
+                <span>Back to Products</span>
+            </a>
+        </div>
+
+        <!-- Product Form -->
+        <div class="bg-white rounded-xl shadow-lg border border-neutral-200">
+            <div class="px-6 py-4 border-b border-neutral-200 bg-neutral-50">
+                <h3 class="text-lg font-semibold text-neutral-900">Product Information</h3>
+            </div>
+
+            <form id="productForm" method="post" action="/products" enctype="multipart/form-data" novalidate
+                class="p-6">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Left Column -->
+                    <div class="space-y-6">
+                        <!-- Product Name -->
+                        <div class="form-group">
+                            <label for="name" class="block text-sm font-medium text-neutral-700 mb-2">
+                                <i class="ri-product-hunt-line mr-2 text-primary-600"></i>Product Name *
+                            </label>
+                            <input type="text" id="name" name="product[name]"
+                                class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 placeholder-neutral-400"
+                                placeholder="Enter product name">
+                            <div class="error-message hidden text-red-500 text-sm mt-1" id="nameError">
+                                <i class="ri-error-warning-line mr-1"></i><span></span>
+                            </div>
+                        </div>
+
+                        <!-- Price -->
+                        <div class="form-group">
+                            <label for="price" class="block text-sm font-medium text-neutral-700 mb-2">
+                                <i class="ri-money-rupee-circle-line mr-2 text-primary-600"></i>Price (₹) *
+                            </label>
+                            <input type="number" id="price" name="product[price]" min="0" step="0.01"
+                                class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 placeholder-neutral-400"
+                                placeholder="0.00">
+                            <div class="error-message hidden text-red-500 text-sm mt-1" id="priceError">
+                                <i class="ri-error-warning-line mr-1"></i><span></span>
+                            </div>
+                        </div>
+
+                        <!-- Category -->
+                        <div class="form-group">
+                            <label for="category" class="block text-sm font-medium text-neutral-700 mb-2">
+                                <i class="ri-folder-line mr-2 text-primary-600"></i>Category *
+                            </label>
+                            <select id="category" name="product[category]"
+                                class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200">
+                                <option value="">Select Category</option>
+                                <option value="Electronics">📱 Electronics</option>
+                                <option value="Clothing">👕 Clothing</option>
+                                <option value="Accessories">💍 Accessories</option>
+                            </select>
+                            <div class="error-message hidden text-red-500 text-sm mt-1" id="categoryError">
+                                <i class="ri-error-warning-line mr-1"></i><span></span>
+                            </div>
+                        </div>
+
+                        <!-- Sale Percentage -->
+                        <div class="form-group">
+                            <label for="sale" class="block text-sm font-medium text-neutral-700 mb-2">
+                                <i class="ri-percent-line mr-2 text-primary-600"></i>Sale Discount (%)
+                            </label>
+                            <input type="number" id="sale" name="product[sale]" min="0" max="100"
+                                class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 placeholder-neutral-400"
+                                placeholder="0">
+                            <p class="text-sm text-neutral-500 mt-1">Optional: Enter discount percentage (0-100)</p>
+                            <div class="error-message hidden text-red-500 text-sm mt-1" id="saleError">
+                                <i class="ri-error-warning-line mr-1"></i><span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="space-y-6">
+                        <!-- Product Images -->
+                        <div class="form-group">
+                            <label for="images" class="block text-sm font-medium text-neutral-700 mb-2">
+                                <i class="ri-image-line mr-2 text-primary-600"></i>Product Images (Max 5)
+                            </label>
+                            <div
+                                class="border-2 border-dashed border-neutral-300 rounded-lg p-6 text-center hover:border-primary-400 transition-colors duration-200">
+                                <input type="file" id="images" name="product[images]" accept="image/*" multiple
+                                    class="hidden">
+
+                                <!-- Image Previews Container -->
+                                <div id="image-previews" class="hidden grid grid-cols-2 sm:grid-cols-3 gap-4 mb-4">
+                                    <!-- Preview images will be inserted here -->
+                                </div>
+
+                                <!-- Upload Area -->
+                                <div id="image-upload" class="cursor-pointer"
+                                    onclick="document.getElementById('images').click()">
+                                    <i class="ri-upload-cloud-line text-4xl text-neutral-400 mb-2"></i>
+                                    <p class="text-neutral-600 font-medium">Click to upload images</p>
+                                    <p class="text-sm text-neutral-500">PNG, JPG, WEBP up to 5MB each (Max 5 images)</p>
+                                </div>
+
+                                <!-- Progress Bar -->
+                                <div id="upload-progress" class="hidden mt-4">
+                                    <div class="bg-neutral-200 rounded-full h-2">
+                                        <div id="progress-bar"
+                                            class="bg-primary-600 h-2 rounded-full transition-all duration-300"
+                                            style="width: 0%"></div>
+                                    </div>
+                                    <p class="text-sm text-neutral-600 mt-2">Uploading images...</p>
+                                </div>
+                            </div>
+                            <div class="error-message hidden text-red-500 text-sm mt-1" id="imageError">
+                                <i class="ri-error-warning-line mr-1"></i><span></span>
+                            </div>
+                        </div>
+
+                        <!-- Quantity -->
+                        <div class="form-group">
+                            <label for="qty" class="block text-sm font-medium text-neutral-700 mb-2">
+                                <i class="ri-stack-line mr-2 text-primary-600"></i>Stock Quantity *
+                            </label>
+                            <input type="number" id="qty" name="product[qty]" min="0"
+                                class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 placeholder-neutral-400"
+                                placeholder="0">
+                            <div class="error-message hidden text-red-500 text-sm mt-1" id="qtyError">
+                                <i class="ri-error-warning-line mr-1"></i><span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description (Full Width) -->
+                <div class="mt-6">
+                    <label for="description" class="block text-sm font-medium text-neutral-700 mb-2">
+                        <i class="ri-file-text-line mr-2 text-primary-600"></i>Product Description
+                    </label>
+                    <textarea id="description" name="product[description]" rows="4"
+                        class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 placeholder-neutral-400 resize-none"
+                        placeholder="Describe your product features, benefits, and specifications..."></textarea>
+                    <div class="error-message hidden text-red-500 text-sm mt-1" id="descriptionError">
+                        <i class="ri-error-warning-line mr-1"></i><span></span>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="flex items-center justify-end space-x-4 mt-8 pt-6 border-t border-neutral-200">
+                    <a href="/vendors/products"
+                        class="px-6 py-3 border border-neutral-300 text-neutral-700 rounded-lg font-medium hover:bg-neutral-50 transition-all duration-200">
+                        Cancel
+                    </a>
+                    <button type="submit"
+                        class="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 shadow-lg hover:shadow-xl">
+                        <i class="ri-add-line mr-2"></i>Create Product
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        let selectedFiles = [];
+        const maxFiles = 5;
+        const maxFileSize = 5 * 1024 * 1024; // 5MB
+
+        // Multiple image preview functionality
+        document.getElementById('images').addEventListener('change', function (e) {
+            const files = Array.from(e.target.files);
+
+            // Validate file count
+            if (files.length > maxFiles) {
+                showError('imageError', `Maximum ${maxFiles} images allowed`);
+                return;
+            }
+
+            // Validate file sizes and types
+            for (let file of files) {
+                if (file.size > maxFileSize) {
+                    showError('imageError', `File ${file.name} is too large. Maximum size is 5MB`);
+                    return;
+                }
+
+                if (!file.type.startsWith('image/')) {
+                    showError('imageError', `File ${file.name} is not an image`);
+                    return;
+                }
+            }
+
+            selectedFiles = files;
+            displayImagePreviews(files);
+            hideError('imageError');
+        });
+
+        function displayImagePreviews(files) {
+            const previewContainer = document.getElementById('image-previews');
+            const uploadArea = document.getElementById('image-upload');
+
+            previewContainer.innerHTML = '';
+
+            if (files.length > 0) {
+                previewContainer.classList.remove('hidden');
+                uploadArea.classList.add('hidden');
+
+                files.forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const previewDiv = document.createElement('div');
+                        previewDiv.className = 'relative group';
+                        previewDiv.innerHTML = `
+                            <img src="${e.target.result}" class="w-full h-24 object-cover rounded-lg">
+                            <button type="button" onclick="removeImage(${index})"
+                                class="absolute top-1 right-1 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600 transition-colors">
+                                <i class="ri-close-line"></i>
+                            </button>
+                            <div class="absolute bottom-1 left-1 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">
+                                ${file.name.length > 15 ? file.name.substring(0, 15) + '...' : file.name}
+                            </div>
+                        `;
+                        previewContainer.appendChild(previewDiv);
+                    };
+                    reader.readAsDataURL(file);
+                });
+
+                // Add upload more button if less than max files
+                if (files.length < maxFiles) {
+                    const addMoreDiv = document.createElement('div');
+                    addMoreDiv.className = 'flex items-center justify-center border-2 border-dashed border-neutral-300 rounded-lg h-24 cursor-pointer hover:border-primary-400 transition-colors';
+                    addMoreDiv.innerHTML = `
+                        <div class="text-center" onclick="document.getElementById('images').click()">
+                            <i class="ri-add-line text-2xl text-neutral-400"></i>
+                            <p class="text-xs text-neutral-500 mt-1">Add More</p>
+                        </div>
+                    `;
+                    previewContainer.appendChild(addMoreDiv);
+                }
+            } else {
+                previewContainer.classList.add('hidden');
+                uploadArea.classList.remove('hidden');
+            }
+        }
+
+        function removeImage(index) {
+            const dt = new DataTransfer();
+            const files = Array.from(document.getElementById('images').files);
+
+            files.forEach((file, i) => {
+                if (i !== index) {
+                    dt.items.add(file);
+                }
+            });
+
+            document.getElementById('images').files = dt.files;
+            selectedFiles = Array.from(dt.files);
+            displayImagePreviews(selectedFiles);
+        }
+
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.querySelector('span').textContent = message;
+            errorElement.classList.remove('hidden');
+        }
+
+        function hideError(elementId) {
+            document.getElementById(elementId).classList.add('hidden');
+        }
+
+        // Form validation
+        document.getElementById('productForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            let isValid = true;
+
+            function showError(inputId, message) {
+                const inputElement = document.getElementById(inputId);
+                const errorElement = document.getElementById(inputId + 'Error');
+                const errorSpan = errorElement.querySelector('span');
+
+                errorSpan.textContent = message;
+                errorElement.classList.remove('hidden');
+                inputElement.classList.add('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+                inputElement.classList.remove('border-neutral-300', 'focus:border-primary-500', 'focus:ring-primary-500');
+            }
+
+            function clearError(inputId) {
+                const inputElement = document.getElementById(inputId);
+                const errorElement = document.getElementById(inputId + 'Error');
+
+                errorElement.classList.add('hidden');
+                inputElement.classList.remove('border-red-500', 'focus:border-red-500', 'focus:ring-red-500');
+                inputElement.classList.add('border-neutral-300', 'focus:border-primary-500', 'focus:ring-primary-500');
+            }
+
+            // Product Name Validation
+            const name = document.getElementById('name').value.trim();
+            if (name.length < 3) {
+                showError('name', 'Product name must be at least 3 characters.');
+                isValid = false;
+            } else {
+                clearError('name');
+            }
+
+            // Price Validation
+            const price = document.getElementById('price').value.trim();
+            if (price === '' || parseFloat(price) < 1) {
+                showError('price', 'Price must be at least ₹1.');
+                isValid = false;
+            } else {
+                clearError('price');
+            }
+
+            // Category Validation
+            const category = document.getElementById('category').value;
+            if (category === '') {
+                showError('category', 'Please select a category.');
+                isValid = false;
+            } else {
+                clearError('category');
+            }
+
+            // Sale Validation (Optional)
+            const sale = document.getElementById('sale').value.trim();
+            if (sale !== '' && (parseInt(sale) < 0 || parseInt(sale) > 100)) {
+                showError('sale', 'Sale percentage must be between 0 and 100.');
+                isValid = false;
+            } else {
+                clearError('sale');
+            }
+
+            // Quantity Validation
+            const qty = document.getElementById('qty').value.trim();
+            if (qty === '' || parseInt(qty) < 1) {
+                showError('qty', 'Quantity must be at least 1.');
+                isValid = false;
+            } else {
+                clearError('qty');
+            }
+
+            // If all validations pass, submit the form
+            if (isValid) {
+                this.submit();
+            }
+        });
+    </script>
+
+    <%- include('../partials/vendorFooter.ejs') %>

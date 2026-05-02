@@ -1,0 +1,499 @@
+<%- include('./partials/head.ejs') %>
+
+    <!-- Hero Section -->
+    <main class="relative overflow-hidden">
+  <div class="bg-gradient-to-br from-primary-50 via-white to-primary-100 min-h-screen flex items-center">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        
+        <!-- Left Content -->
+        <div class="space-y-8 text-center lg:text-left">
+          <div class="space-y-4">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-900 leading-tight">
+              <span class="block">Style, Tech &</span>
+              <span
+                class="bg-gradient-to-r from-primary-600 to-primary-800 bg-clip-text text-transparent">
+                Trends
+              </span>
+              <span class="block">All in One Place!</span>
+            </h1>
+
+            <p class="text-lg md:text-xl text-neutral-600 leading-relaxed max-w-2xl">
+              Discover trendy clothing, stylish accessories, and the latest electronics—all in one place.
+              Shop now for quality, affordability, and fast shipping. Elevate your lifestyle with our exclusive collections!
+            </p>
+          </div>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+            <a href="/products"
+              class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
+              <i class="ri-shopping-bag-line mr-2"></i>Shop Now
+            </a>
+            <a href="#categories"
+              class="border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
+              <i class="ri-eye-line mr-2"></i>Explore Categories
+            </a>
+          </div>
+
+          <!-- Trust Indicators -->
+          <div class="flex flex-wrap justify-center lg:justify-start gap-6 pt-8">
+            <div class="flex items-center space-x-2 text-neutral-600">
+              <i class="ri-shield-check-line text-primary-600 text-xl"></i>
+              <span class="font-medium">Secure Payments</span>
+            </div>
+            <div class="flex items-center space-x-2 text-neutral-600">
+              <i class="ri-truck-line text-primary-600 text-xl"></i>
+              <span class="font-medium">Fast Delivery</span>
+            </div>
+            <div class="flex items-center space-x-2 text-neutral-600">
+              <i class="ri-customer-service-2-line text-primary-600 text-xl"></i>
+              <span class="font-medium">24/7 Support</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Content - Hero Image -->
+        <div class="relative flex justify-center items-center">
+          <!-- Hero Image -->
+          <div class="relative z-10">
+            <img src="../images/hero.avif" alt="Shopping Experience"
+              class="w-full max-w-md lg:max-w-lg rounded-2xl shadow-2xl transform hover:scale-105 transition-transform duration-500">
+          </div>
+
+          <!-- Floating Background Circles -->
+          <div
+            class="absolute -top-4 -right-4 w-24 h-24 bg-primary-200 rounded-full opacity-60 animate-pulse">
+          </div>
+          <div
+            class="absolute -bottom-6 -left-6 w-32 h-32 bg-accent-200 rounded-full opacity-40 animate-pulse delay-1000">
+          </div>
+
+          <!-- Stats Cards -->
+          <div
+            class="absolute -bottom-10 left-4 sm:left-8 bg-white px-5 py-3 rounded-lg shadow-xl border border-neutral-200 z-20">
+            <div class="text-center">
+              <div class="text-2xl font-bold text-primary-600">1000+</div>
+              <div class="text-sm text-neutral-600">Happy Customers</div>
+            </div>
+          </div>
+
+          <div
+            class="absolute -top-10 right-4 sm:right-8 bg-white px-5 py-3 rounded-lg shadow-xl border border-neutral-200 z-20">
+            <div class="text-center">
+              <div class="text-2xl font-bold text-accent-600">500+</div>
+              <div class="text-sm text-neutral-600">Products</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    </main>
+
+    <!-- Categories Section -->
+    <section id="categories" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+                    Categories We Offer
+                </h2>
+                <p class="text-lg text-neutral-600 max-w-2xl mx-auto">
+                    Explore our diverse range of products across different categories, carefully curated for your
+                    lifestyle needs.
+                </p>
+            </div>
+
+            <!-- Categories Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Electronics Category -->
+                <a href="/products/category/Electronics" class="group">
+                    <div
+                        class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50 to-blue-100 p-8 h-80 flex flex-col justify-between transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        </div>
+
+                        <div class="relative z-10">
+                            <div
+                                class="w-16 h-16 bg-blue-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                                <i class="ri-smartphone-line text-2xl text-white"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-neutral-900 mb-2">Electronics</h3>
+                            <p class="text-neutral-600">Latest gadgets, smartphones, laptops, and tech accessories</p>
+                        </div>
+
+                        <div class="relative z-10 mt-auto">
+                            <img src="../images/electronics.avif" alt="Electronics"
+                                class="w-full h-32 object-cover rounded-lg group-hover:scale-105 transition-transform duration-300">
+                        </div>
+
+                        <div
+                            class="absolute bottom-4 right-4 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:bg-blue-600 transition-colors duration-300">
+                            <i
+                                class="ri-arrow-right-line text-blue-600 group-hover:text-white transition-colors duration-300"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Clothing Category -->
+                <a href="/products/category/Clothing" class="group">
+                    <div
+                        class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-pink-50 to-rose-100 p-8 h-80 flex flex-col justify-between transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-pink-600/10 to-rose-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        </div>
+
+                        <div class="relative z-10">
+                            <div
+                                class="w-16 h-16 bg-pink-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                                <i class="ri-shirt-line text-2xl text-white"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-neutral-900 mb-2">Clothing</h3>
+                            <p class="text-neutral-600">Trendy fashion for men, women, and kids of all ages</p>
+                        </div>
+
+                        <div class="relative z-10 mt-auto">
+                            <img src="../images/clothing.avif" alt="Clothing"
+                                class="w-full h-32 object-cover rounded-lg group-hover:scale-105 transition-transform duration-300">
+                        </div>
+
+                        <div
+                            class="absolute bottom-4 right-4 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:bg-pink-600 transition-colors duration-300">
+                            <i
+                                class="ri-arrow-right-line text-pink-600 group-hover:text-white transition-colors duration-300"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Accessories Category -->
+                <a href="/products/category/Accessories" class="group">
+                    <div
+                        class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-green-50 to-emerald-100 p-8 h-80 flex flex-col justify-between transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-green-600/10 to-emerald-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        </div>
+
+                        <div class="relative z-10">
+                            <div
+                                class="w-16 h-16 bg-green-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                                <i class="ri-handbag-line text-2xl text-white"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-neutral-900 mb-2">Accessories</h3>
+                            <p class="text-neutral-600">Stylish bags, jewelry, watches, and lifestyle accessories</p>
+                        </div>
+
+                        <div class="relative z-10 mt-auto">
+                            <img src="../images/Accessories.avif" alt="Accessories"
+                                class="w-full h-32 object-cover rounded-lg group-hover:scale-105 transition-transform duration-300">
+                        </div>
+
+                        <div
+                            class="absolute bottom-4 right-4 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg group-hover:bg-green-600 transition-colors duration-300">
+                            <i
+                                class="ri-arrow-right-line text-green-600 group-hover:text-white transition-colors duration-300"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Featured Products Section -->
+    <% if(showdata.length> 0){ %>
+        <section class="py-20 bg-neutral-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+                        Featured Products
+                    </h2>
+                    <p class="text-lg text-neutral-600 max-w-2xl mx-auto">
+                        Discover our handpicked selection of trending products that our customers love most.
+                    </p>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <% for (let i=0; (i<4 && i<showdata.length); i++){ %>
+                        <div
+                            class="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 overflow-hidden">
+                            <!-- Product Image -->
+                            <div class="relative overflow-hidden">
+                                <% const imageUrl=getProductImageUrl(showdata[i]); const
+                                    isDefaultImage=imageUrl==='/images/default.jpg' ; %>
+                                    <% if (!isDefaultImage) { %>
+                                        <img src="<%= imageUrl %>" alt="<%= showdata[i].name %>"
+                                            class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500">
+                                        <% } else { %>
+                                            <div class="w-full h-48 bg-neutral-200 flex items-center justify-center">
+                                                <i class="ri-image-line text-4xl text-neutral-400"></i>
+                                            </div>
+                                            <% } %>
+
+                                                <!-- Overlay -->
+                                                <div
+                                                    class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                </div>
+
+                                                <!-- Quick Actions -->
+                                                <div
+                                                    class="absolute top-4 right-4 space-y-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                    <button
+                                                        class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-primary-600 hover:text-white transition-colors duration-200">
+                                                        <i class="ri-heart-line text-lg"></i>
+                                                    </button>
+                                                    <a href="/products/<%= showdata[i]._id %>"
+                                                        class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-lg hover:bg-primary-600 hover:text-white transition-colors duration-200">
+                                                        <i class="ri-eye-line text-lg"></i>
+                                                    </a>
+                                                </div>
+                            </div>
+
+                            <!-- Product Info -->
+                            <div class="p-6">
+                                <h3 class="text-lg font-semibold text-neutral-900 mb-2 line-clamp-2">
+                                    <%= showdata[i].name %>
+                                </h3>
+
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-2xl font-bold text-primary-600">
+                                        ₹<%= showdata[i].price %>
+                                    </span>
+                                    <div class="flex items-center space-x-1">
+                                        <div class="flex text-yellow-400">
+                                            <i class="ri-star-fill text-sm"></i>
+                                            <i class="ri-star-fill text-sm"></i>
+                                            <i class="ri-star-fill text-sm"></i>
+                                            <i class="ri-star-fill text-sm"></i>
+                                            <i class="ri-star-line text-sm"></i>
+                                        </div>
+                                        <span class="text-sm text-neutral-500">(4.0)</span>
+                                    </div>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="space-y-2">
+                                    <a href="/users/cart/<%= showdata[i]._id %>"
+                                        class="w-full bg-primary-600 hover:bg-primary-700 text-white py-2 px-4 rounded-lg font-medium transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 flex items-center justify-center space-x-2">
+                                        <i class="ri-shopping-cart-line"></i>
+                                        <span>Add to Cart</span>
+                                    </a>
+                                    <a href="/products/<%= showdata[i]._id %>"
+                                        class="w-full border-2 border-primary-600 text-primary-600 hover:bg-primary-600 hover:text-white py-2 px-4 rounded-lg font-medium transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 flex items-center justify-center space-x-2">
+                                        <i class="ri-shopping-bag-line"></i>
+                                        <span>Buy Now</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <% } %>
+                </div>
+
+                <!-- View All Products Button -->
+                <div class="text-center mt-12">
+                    <a href="/products"
+                        class="inline-flex items-center space-x-2 bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
+                        <span>View All Products</span>
+                        <i class="ri-arrow-right-line"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <% } %>
+            <!-- Features Section -->
+            <section class="py-20 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <!-- Section Header -->
+                    <div class="text-center mb-16">
+                        <h2 class="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
+                            Why Choose SellEra?
+                        </h2>
+                        <p class="text-lg text-neutral-600 max-w-2xl mx-auto">
+                            We're committed to providing you with the best shopping experience through our exceptional
+                            services.
+                        </p>
+                    </div>
+
+                    <!-- Features Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <!-- Fast Delivery -->
+                        <div class="text-center group">
+                            <div class="relative mb-6">
+                                <div
+                                    class="w-24 h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                                    <i class="ri-truck-line text-3xl text-white"></i>
+                                </div>
+                                <div
+                                    class="absolute -inset-2 bg-blue-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-semibold text-neutral-900 mb-3">Fast Delivery</h3>
+                            <p class="text-neutral-600 leading-relaxed">
+                                Get your orders delivered quickly with our efficient logistics network and same-day
+                                delivery options.
+                            </p>
+                        </div>
+
+                        <!-- Easy Returns -->
+                        <div class="text-center group">
+                            <div class="relative mb-6">
+                                <div
+                                    class="w-24 h-24 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                                    <i class="ri-refresh-line text-3xl text-white"></i>
+                                </div>
+                                <div
+                                    class="absolute -inset-2 bg-green-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-semibold text-neutral-900 mb-3">Easy Returns</h3>
+                            <p class="text-neutral-600 leading-relaxed">
+                                Hassle-free returns within 30 days. No questions asked policy for your peace of mind.
+                            </p>
+                        </div>
+
+                        <!-- Secure Payments -->
+                        <div class="text-center group">
+                            <div class="relative mb-6">
+                                <div
+                                    class="w-24 h-24 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                                    <i class="ri-shield-check-line text-3xl text-white"></i>
+                                </div>
+                                <div
+                                    class="absolute -inset-2 bg-purple-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-semibold text-neutral-900 mb-3">Secure Payments</h3>
+                            <p class="text-neutral-600 leading-relaxed">
+                                Your transactions are protected with bank-level security and multiple payment options.
+                            </p>
+                        </div>
+
+                        <!-- Best Quality -->
+                        <div class="text-center group">
+                            <div class="relative mb-6">
+                                <div
+                                    class="w-24 h-24 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl mx-auto flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                                    <i class="ri-star-line text-3xl text-white"></i>
+                                </div>
+                                <div
+                                    class="absolute -inset-2 bg-purple-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                </div>
+                            </div>
+                            <h3 class="text-xl font-semibold text-neutral-900 mb-3">Best Quality</h3>
+                            <p class="text-neutral-600 leading-relaxed">
+                                Carefully curated products from trusted vendors ensuring premium quality every time.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- About Section -->
+            <section class="py-20 bg-gradient-to-br from-primary-50 to-neutral-50">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <!-- Left Content -->
+                        <div class="space-y-8">
+                            <div class="space-y-4">
+                                <h2 class="text-3xl md:text-4xl font-bold text-neutral-900">
+                                    About SellEra
+                                </h2>
+                                <p class="text-lg text-neutral-600 leading-relaxed">
+                                    Your trusted partner in the digital marketplace revolution.
+                                </p>
+                            </div>
+
+                            <div class="space-y-6">
+                                <div class="space-y-3">
+                                    <h3 class="text-xl font-semibold text-neutral-900 flex items-center space-x-2">
+                                        <div class="w-8 h-8 bg-primary-600 rounded-lg flex items-center justify-center">
+                                            <i class="ri-team-line text-white text-sm"></i>
+                                        </div>
+                                        <span>Who We Are</span>
+                                    </h3>
+                                    <p class="text-neutral-600 leading-relaxed pl-10">
+                                        Welcome to SellEra, a trusted multi-vendor marketplace where buyers and sellers
+                                        connect
+                                        seamlessly. We bring you the best deals from verified sellers, offering a
+                                        variety of products at unbeatable
+                                        prices.
+                                    </p>
+                                </div>
+
+                                <div class="space-y-3">
+                                    <h3 class="text-xl font-semibold text-neutral-900 flex items-center space-x-2">
+                                        <div class="w-8 h-8 bg-accent-600 rounded-lg flex items-center justify-center">
+                                            <i class="ri-target-line text-white text-sm"></i>
+                                        </div>
+                                        <span>Our Mission</span>
+                                    </h3>
+                                    <p class="text-neutral-600 leading-relaxed pl-10">
+                                        Our mission is to provide a smooth and secure shopping experience while
+                                        empowering small
+                                        businesses to grow. We believe in innovation, customer satisfaction, and fair
+                                        trade, ensuring that both
+                                        buyers and vendors benefit from our platform.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Stats -->
+                            <div class="grid grid-cols-3 gap-6 pt-8">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-primary-600">1000+</div>
+                                    <div class="text-sm text-neutral-600">Happy Customers</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-accent-600">500+</div>
+                                    <div class="text-sm text-neutral-600">Products</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-green-600">50+</div>
+                                    <div class="text-sm text-neutral-600">Vendors</div>
+                                </div>
+                            </div>
+
+                            <!-- CTA Button -->
+                            <div class="pt-4">
+                                <a href="/products"
+                                    class="inline-flex items-center space-x-2 bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
+                                    <span>Start Shopping</span>
+                                    <i class="ri-arrow-right-line"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Right Content - Image -->
+                        <div class="relative">
+                            <div class="relative z-10">
+                                <img src="../images/about.avif" alt="About SellEra"
+                                    class="w-full h-auto rounded-2xl shadow-2xl">
+                            </div>
+
+                            <!-- Decorative Elements -->
+                            <div
+                                class="absolute -top-8 -right-8 w-32 h-32 bg-primary-200 rounded-full opacity-60 animate-pulse">
+                            </div>
+                            <div
+                                class="absolute -bottom-8 -left-8 w-24 h-24 bg-accent-200 rounded-full opacity-40 animate-pulse delay-1000">
+                            </div>
+
+                            <!-- Floating Card -->
+                            <div
+                                class="absolute top-8 -left-8 bg-white p-4 rounded-lg shadow-lg border border-neutral-200 transform rotate-3">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center">
+                                        <i class="ri-check-line text-white"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-semibold text-neutral-900">Trusted Platform</div>
+                                        <div class="text-sm text-neutral-600">Verified Vendors</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <%- include('./partials/footer.ejs') %>

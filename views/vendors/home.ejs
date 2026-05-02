@@ -1,0 +1,274 @@
+<%- include('../partials/vendorHead.ejs') %>
+
+    <script>
+        setPageTitle('Dashboard');
+    </script>
+
+    <!-- Dashboard Content -->
+    <div class="space-y-6">
+        <!-- Welcome Section -->
+        <div class="bg-gradient-to-r from-primary-600 to-primary-700 rounded-2xl p-6 text-white">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold mb-2">Welcome back, Vendor!</h1>
+                    <p class="text-primary-100">Here's what's happening with your store today.</p>
+                </div>
+                <div class="hidden md:block">
+                    <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
+                        <i class="ri-store-line text-3xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Total Sales -->
+            <div
+                class="bg-white rounded-xl shadow-lg p-6 border border-neutral-200 hover:shadow-xl transition-shadow duration-300">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-neutral-600 mb-1">Total Sales</p>
+                        <p class="text-3xl font-bold text-neutral-900">₹<%= stats ? stats.totalSales.toLocaleString() :
+                                0 %>
+                        </p>
+                        <p class="text-sm text-green-600 mt-1">
+                            <i class="ri-money-rupee-circle-line"></i> All time revenue
+                        </p>
+                    </div>
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                        <i class="ri-money-rupee-circle-line text-2xl text-green-600"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pending Orders -->
+            <div
+                class="bg-white rounded-xl shadow-lg p-6 border border-neutral-200 hover:shadow-xl transition-shadow duration-300">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-neutral-600 mb-1">Pending Orders</p>
+                        <p class="text-3xl font-bold text-neutral-900">
+                            <%= stats ? stats.pendingOrders : 0 %>
+                        </p>
+                        <p class="text-sm text-yellow-600 mt-1">
+                            <i class="ri-time-line"></i>
+                            <%= stats && stats.pendingOrders> 0 ? 'Needs attention' : 'All caught up' %>
+                        </p>
+                    </div>
+                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                        <i class="ri-time-line text-2xl text-yellow-600"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Completed Orders -->
+            <div
+                class="bg-white rounded-xl shadow-lg p-6 border border-neutral-200 hover:shadow-xl transition-shadow duration-300">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-neutral-600 mb-1">Completed Orders</p>
+                        <p class="text-3xl font-bold text-neutral-900">
+                            <%= stats ? stats.completedOrders : 0 %>
+                        </p>
+                        <p class="text-sm text-blue-600 mt-1">
+                            <i class="ri-check-line"></i> All time
+                        </p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <i class="ri-check-double-line text-2xl text-blue-600"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Store Rating -->
+            <div
+                class="bg-white rounded-xl shadow-lg p-6 border border-neutral-200 hover:shadow-xl transition-shadow duration-300">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-neutral-600 mb-1">Store Rating</p>
+                        <p class="text-3xl font-bold text-neutral-900">
+                            <%= stats ? stats.storeRating : '0.0' %>
+                        </p>
+                        <div class="flex items-center mt-1">
+                            <div class="flex text-yellow-400 mr-2">
+                                <% const rating=stats ? parseFloat(stats.storeRating) : 0; for(let i=1; i <=5; i++) { %>
+                                    <i class="<%= i <= rating ? 'ri-star-fill' : 'ri-star-line' %> text-sm"></i>
+                                    <% } %>
+                            </div>
+                            <span class="text-sm text-neutral-500">(<%= stats ? stats.totalProducts : 0 %>
+                                    products)</span>
+                        </div>
+                    </div>
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <i class="ri-star-line text-2xl text-purple-600"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-neutral-200">
+            <h2 class="text-xl font-bold text-neutral-900 mb-6">Quick Actions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Add New Product -->
+                <a href="/products/new" class="group block">
+                    <div
+                        class="bg-gradient-to-br from-primary-50 to-primary-100 rounded-xl p-6 border border-primary-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="flex items-center space-x-4">
+                            <div
+                                class="w-12 h-12 bg-primary-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                <i class="ri-add-box-line text-2xl text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-neutral-900 mb-1">Add New Product</h3>
+                                <p class="text-sm text-neutral-600">Create and list a new product</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Manage Products -->
+                <a href="/vendors/products" class="group block">
+                    <div
+                        class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border border-blue-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="flex items-center space-x-4">
+                            <div
+                                class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                <i class="ri-edit-box-line text-2xl text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-neutral-900 mb-1">Manage Products</h3>
+                                <p class="text-sm text-neutral-600">Edit and update your products</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- View Orders -->
+                <a href="/vendors/orders" class="group block">
+                    <div
+                        class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 border border-green-200 hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                        <div class="flex items-center space-x-4">
+                            <div
+                                class="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                <i class="ri-file-list-line text-2xl text-white"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-neutral-900 mb-1">View Orders</h3>
+                                <p class="text-sm text-neutral-600">Manage customer orders</p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Recent Orders -->
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-neutral-200">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-bold text-neutral-900">Recent Orders</h2>
+                    <a href="/vendors/orders" class="text-primary-600 hover:text-primary-700 font-medium text-sm">
+                        View all <i class="ri-arrow-right-line ml-1"></i>
+                    </a>
+                </div>
+                <div class="space-y-4">
+                    <% if (stats && stats.recentOrders && stats.recentOrders.length> 0) { %>
+                        <% stats.recentOrders.forEach(order=> { %>
+                            <div class="flex items-center justify-between p-4 bg-neutral-50 rounded-lg">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                                        <i class="ri-shopping-bag-line text-primary-600"></i>
+                                    </div>
+                                    <div>
+                                        <p class="font-medium text-neutral-900">Order #<%=
+                                                order._id.toString().slice(-6) %>
+                                        </p>
+                                        <p class="text-sm text-neutral-600">
+                                            <%= order.customer ? order.customer.name : 'Customer' %>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-bold text-neutral-900">₹<%= order.vendorTotal.toLocaleString() %>
+                                    </p>
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium
+                                        <%= order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                                            order.status === 'processing' ? 'bg-blue-100 text-blue-800' :
+                                            order.status === 'delivered' ? 'bg-green-100 text-green-800' :
+                                            'bg-gray-100 text-gray-800' %>">
+                                        <%= order.status.charAt(0).toUpperCase() + order.status.slice(1) %>
+                                    </span>
+                                </div>
+                            </div>
+                            <% }); %>
+                                <% } else { %>
+                                    <div class="text-center py-8">
+                                        <div
+                                            class="w-16 h-16 bg-neutral-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                            <i class="ri-file-list-line text-2xl text-neutral-400"></i>
+                                        </div>
+                                        <p class="text-neutral-600">No recent orders</p>
+                                        <p class="text-sm text-neutral-500 mt-1">Orders will appear here when customers
+                                            make purchases
+                                        </p>
+                                    </div>
+                                    <% } %>
+                </div>
+            </div>
+
+            <!-- Performance Chart -->
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-neutral-200">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-bold text-neutral-900">Sales Performance</h2>
+                    <select
+                        class="text-sm border border-neutral-300 rounded-lg px-3 py-1 focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        <option>Last 7 days</option>
+                        <option>Last 30 days</option>
+                        <option>Last 3 months</option>
+                    </select>
+                </div>
+                <div class="text-center py-8">
+                    <div class="w-16 h-16 bg-neutral-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="ri-bar-chart-line text-2xl text-neutral-400"></i>
+                    </div>
+                    <p class="text-neutral-600">No sales data yet</p>
+                    <p class="text-sm text-neutral-500 mt-1">Start selling to see your performance metrics</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips & Resources -->
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200">
+            <div class="flex items-start space-x-4">
+                <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <i class="ri-lightbulb-line text-2xl text-white"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-lg font-semibold text-neutral-900 mb-2">Getting Started Tips</h3>
+                    <ul class="space-y-2 text-sm text-neutral-700">
+                        <li class="flex items-center space-x-2">
+                            <i class="ri-check-line text-green-600"></i>
+                            <span>Complete your vendor profile to build trust with customers</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="ri-check-line text-green-600"></i>
+                            <span>Add high-quality product images and detailed descriptions</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="ri-check-line text-green-600"></i>
+                            <span>Set competitive prices and offer promotions to attract customers</span>
+                        </li>
+                        <li class="flex items-center space-x-2">
+                            <i class="ri-check-line text-green-600"></i>
+                            <span>Respond quickly to customer inquiries and reviews</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../partials/vendorFooter.ejs') %>

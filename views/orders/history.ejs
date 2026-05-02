@@ -1,0 +1,179 @@
+<%- include('../partials/head.ejs') %>
+
+<!-- Order History Page -->
+<main class="min-h-screen bg-neutral-50">
+    <!-- Page Header -->
+    <section class="bg-gradient-to-r from-primary-600 to-primary-700 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">
+                    <i class="ri-file-list-line mr-3"></i>Order History
+                </h1>
+                <p class="text-lg text-primary-100">
+                    Track and manage all your orders
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order History Content -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <% if(orders && orders.length > 0) { %>
+                <!-- Orders List -->
+                <div class="space-y-6">
+                    <% for(let order of orders) { %>
+                        <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                            <!-- Order Header -->
+                            <div class="bg-neutral-50 px-6 py-4 border-b border-neutral-200">
+                                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                                    <div class="flex items-center space-x-4">
+                                        <div>
+                                            <h3 class="text-lg font-semibold text-neutral-900">
+                                                Order #<%= order._id.toString().slice(-8).toUpperCase() %>
+                                            </h3>
+                                            <p class="text-sm text-neutral-600">
+                                                Placed on <%= new Date(order.createdAt).toLocaleDateString() %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mt-4 sm:mt-0 flex items-center space-x-4">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-sm font-medium 
+                                            <% if(order.status === 'pending') { %>bg-yellow-100 text-yellow-800<% } %>
+                                            <% if(order.status === 'processing') { %>bg-blue-100 text-blue-800<% } %>
+                                            <% if(order.status === 'shipped') { %>bg-purple-100 text-purple-800<% } %>
+                                            <% if(order.status === 'delivered') { %>bg-green-100 text-green-800<% } %>
+                                            <% if(order.status === 'cancelled') { %>bg-red-100 text-red-800<% } %>">
+                                            <% if(order.status === 'pending') { %><i class="ri-time-line mr-1"></i>Pending<% } %>
+                                            <% if(order.status === 'processing') { %><i class="ri-loader-line mr-1"></i>Processing<% } %>
+                                            <% if(order.status === 'shipped') { %><i class="ri-truck-line mr-1"></i>Shipped<% } %>
+                                            <% if(order.status === 'delivered') { %><i class="ri-check-double-line mr-1"></i>Delivered<% } %>
+                                            <% if(order.status === 'cancelled') { %><i class="ri-close-line mr-1"></i>Cancelled<% } %>
+                                        </span>
+                                        
+                                        <span class="text-lg font-bold text-primary-600">₹<%= order.total %></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Order Items -->
+                            <div class="p-6">
+                                <div class="space-y-4">
+                                    <% for(let product of order.orderProducts) { %>
+                                        <div class="flex items-center space-x-4 p-4 bg-neutral-50 rounded-lg">
+                                            <div class="w-16 h-16 bg-neutral-200 rounded-lg flex items-center justify-center">
+                                                <% if (product.image && product.image.data) { %>
+                                                    <img src="data:<%= product.image.contentType %>;base64,<%= product.image.data.toString('base64') %>" 
+                                                         alt="<%= product.name %>" class="w-full h-full object-cover rounded-lg">
+                                                <% } else { %>
+                                                    <i class="ri-image-line text-2xl text-neutral-400"></i>
+                                                <% } %>
+                                            </div>
+                                            <div class="flex-1">
+                                                <h4 class="font-semibold text-neutral-900"><%= product.name %></h4>
+                                                <p class="text-sm text-neutral-600">Category: <%= product.category %></p>
+                                                <p class="text-sm text-neutral-600">Quantity: 1</p>
+                                            </div>
+                                            <div class="text-right">
+                                                <p class="font-semibold text-neutral-900">₹<%= product.price %></p>
+                                                <% if(order.status === 'delivered') { %>
+                                                    <a href="/reviews/new/<%= product._id %>" 
+                                                       class="text-sm text-primary-600 hover:text-primary-700 font-medium">
+                                                        Write Review
+                                                    </a>
+                                                <% } %>
+                                            </div>
+                                        </div>
+                                    <% } %>
+                                </div>
+
+                                <!-- Order Actions -->
+                                <div class="mt-6 flex flex-col sm:flex-row gap-3 justify-end">
+                                    <a href="/orders/<%= order._id %>" 
+                                       class="inline-flex items-center justify-center space-x-2 bg-white border border-neutral-300 text-neutral-700 px-4 py-2 rounded-lg font-medium hover:bg-neutral-50 transition-all duration-200">
+                                        <i class="ri-eye-line"></i>
+                                        <span>View Details</span>
+                                    </a>
+                                    
+                                    <% if(order.status === 'delivered') { %>
+                                        <button class="inline-flex items-center justify-center space-x-2 bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200">
+                                            <i class="ri-download-line"></i>
+                                            <span>Download Invoice</span>
+                                        </button>
+                                    <% } %>
+                                    
+                                    <% if(order.status === 'pending') { %>
+                                        <button onclick="cancelOrder('<%= order._id %>')" 
+                                                class="inline-flex items-center justify-center space-x-2 bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg font-medium transition-all duration-200">
+                                            <i class="ri-close-line"></i>
+                                            <span>Cancel Order</span>
+                                        </button>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    <% } %>
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-12 flex items-center justify-center">
+                    <nav class="flex items-center space-x-2">
+                        <button class="px-3 py-2 text-neutral-500 hover:text-primary-600 transition-colors duration-200" disabled>
+                            <i class="ri-arrow-left-line"></i>
+                        </button>
+                        <button class="px-3 py-2 bg-primary-600 text-white rounded-lg">1</button>
+                        <button class="px-3 py-2 text-neutral-500 hover:text-primary-600 transition-colors duration-200" disabled>
+                            <i class="ri-arrow-right-line"></i>
+                        </button>
+                    </nav>
+                </div>
+
+            <% } else { %>
+                <!-- Empty State -->
+                <div class="text-center py-20">
+                    <div class="w-32 h-32 bg-neutral-200 rounded-full flex items-center justify-center mx-auto mb-8">
+                        <i class="ri-file-list-line text-6xl text-neutral-400"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold text-neutral-900 mb-4">No orders yet</h2>
+                    <p class="text-neutral-600 mb-8 max-w-md mx-auto">
+                        You haven't placed any orders yet. Start shopping to see your order history here.
+                    </p>
+                    <a href="/products" 
+                       class="inline-flex items-center space-x-2 bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
+                        <i class="ri-shopping-bag-line"></i>
+                        <span>Start Shopping</span>
+                    </a>
+                </div>
+            <% } %>
+        </div>
+    </section>
+</main>
+
+<script>
+    function cancelOrder(orderId) {
+        if (confirm('Are you sure you want to cancel this order?')) {
+            fetch(`/orders/${orderId}/cancel`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ status: 'cancelled' })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert('Failed to cancel order. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to cancel order. Please try again.');
+            });
+        }
+    }
+</script>
+
+<%- include('../partials/footer.ejs') %>

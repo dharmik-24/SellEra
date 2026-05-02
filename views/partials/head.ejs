@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title.name %>
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#faf5ff',
+                            100: '#f3e8ff',
+                            200: '#e9d5ff',
+                            300: '#d8b4fe',
+                            400: '#c084fc',
+                            500: '#a855f7',
+                            600: '#9333ea',
+                            700: '#7c3aed',
+                            800: '#6b21a8',
+                            900: '#581c87',
+                            950: '#3b0764',
+                        },
+                        secondary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                            950: '#020617',
+                        },
+                        accent: {
+                            50: '#fef3f2',
+                            100: '#fee4e2',
+                            200: '#fececa',
+                            300: '#fda4a5',
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            700: '#be123c',
+                            800: '#9f1239',
+                            900: '#881337',
+                            950: '#4c0519',
+                        }
+                    },
+                    fontFamily: {
+                        'sans': ['Raleway', 'system-ui', 'sans-serif'],
+                        'display': ['Raleway', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .navbar-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #d8b4fe;
+            transition: width 0.3s ease-in-out;
+        }
+
+        .navbar-link:hover::after {
+            width: 100%;
+        }
+
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-menu {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Loading Overlay Styles */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .loading-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loading-content {
+            text-align: center;
+            color: white;
+        }
+
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loading-text {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .loading-subtext {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        /* Prevent horizontal scrolling */
+        html,
+        body {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+
+        /* Ensure all containers respect viewport width */
+        * {
+            box-sizing: border-box;
+        }
+
+        /* Fix any potential overflow issues */
+        .container,
+        .max-w-7xl,
+        .max-w-6xl,
+        .max-w-5xl,
+        .max-w-4xl {
+            max-width: 100%;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        @media (min-width: 640px) {
+
+            .container,
+            .max-w-7xl,
+            .max-w-6xl,
+            .max-w-5xl,
+            .max-w-4xl {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+
+            .container,
+            .max-w-7xl,
+            .max-w-6xl,
+            .max-w-5xl,
+            .max-w-4xl {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-neutral-50 font-sans text-neutral-800">
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading...</div>
+            <div class="loading-subtext">Please wait while we prepare your content</div>
+        </div>
+    </div>
+    <!-- Navigation -->
+    <nav
+        class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-primary-600 to-primary-700 backdrop-blur-md shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0">
+                    <a href="/"
+                        class="flex items-center space-x-2 text-white font-bold text-xl hover:text-primary-200 transition-colors duration-200">
+                        <span class="text-2xl">🛍️</span>
+                        <span class="font-display">SellEra</span>
+                    </a>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="/"
+                            class="navbar-link relative px-3 py-2 text-white font-medium hover:text-primary-200 transition-colors duration-200">
+                            Home
+                        </a>
+
+                        <!-- Categories Dropdown -->
+                        <div class="dropdown relative">
+                            <button
+                                class="navbar-link relative px-3 py-2 text-white font-medium hover:text-primary-200 transition-colors duration-200 flex items-center space-x-1">
+                                <span>Categories</span>
+                                <i class="ri-arrow-down-s-line text-sm"></i>
+                            </button>
+                            <div
+                                class="dropdown-menu absolute top-full left-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-neutral-200 py-2">
+                                <a href="/products/category/Electronics"
+                                    class="block px-4 py-2 text-neutral-700 hover:bg-primary-50 hover:text-primary-700 transition-colors duration-200">
+                                    <i class="ri-smartphone-line mr-2"></i>Electronics
+                                </a>
+                                <a href="/products/category/Clothing"
+                                    class="block px-4 py-2 text-neutral-700 hover:bg-primary-50 hover:text-primary-700 transition-colors duration-200">
+                                    <i class="ri-shirt-line mr-2"></i>Clothing
+                                </a>
+                                <a href="/products/category/Accessories"
+                                    class="block px-4 py-2 text-neutral-700 hover:bg-primary-50 hover:text-primary-700 transition-colors duration-200">
+                                    <i class="ri-handbag-line mr-2"></i>Accessories
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Search Bar -->
+                        <div class="relative hidden xl:block">
+                            <form action="" class="relative">
+                                <input type="text" placeholder="Search products..."
+                                    class="w-64 px-4 py-2 pl-10 pr-4 text-neutral-700 bg-white/90 backdrop-blur-sm border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300 focus:border-transparent transition-all duration-200">
+                                <i
+                                    class="ri-search-line absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400"></i>
+                            </form>
+                        </div>
+
+                        <a href="/users/show-cart"
+                            class="navbar-link relative px-3 py-2 text-white font-medium hover:text-primary-200 transition-colors duration-200 flex items-center space-x-1">
+                            <i class="ri-shopping-cart-line text-lg"></i>
+                            <span>Cart</span>
+                        </a>
+
+                        <% if(!isLoggedIn){ %>
+                            <a href="/login-register"
+                                class="bg-white text-primary-600 px-4 py-2 rounded-lg font-medium hover:bg-primary-50 transition-all duration-200 transform hover:scale-105">
+                                <i class="ri-login-circle-line mr-1"></i>Login
+                            </a>
+                            <% } else { %>
+                                <a href="/users/profile"
+                                    class="navbar-link relative px-3 py-2 text-white font-medium hover:text-primary-200 transition-colors duration-200 flex items-center space-x-1">
+                                    <i class="ri-user-line text-lg"></i>
+                                    <span>Profile</span>
+                                </a>
+                                <form action="/logout" method="post" class="inline">
+                                    <button type="submit"
+                                        class="bg-primary-800 text-white px-4 py-2 rounded-lg font-medium hover:bg-primary-900 transition-all duration-200 transform hover:scale-105">
+                                        <i class="ri-logout-circle-line mr-1"></i>Logout
+                                    </button>
+                                </form>
+                                <% } %>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button"
+                        class="text-white hover:text-primary-200 focus:outline-none focus:text-primary-200 transition-colors duration-200">
+                        <i class="ri-menu-line text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-primary-700 border-t border-primary-600">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="/"
+                    class="block px-3 py-2 text-white font-medium hover:bg-primary-600 rounded-md transition-colors duration-200">
+                    Home
+                </a>
+
+                <div class="space-y-1">
+                    <div class="px-3 py-2 text-white font-medium">Categories</div>
+                    <a href="/products/category/Electronics"
+                        class="block px-6 py-2 text-primary-200 hover:bg-primary-600 rounded-md transition-colors duration-200">
+                        <i class="ri-smartphone-line mr-2"></i>Electronics
+                    </a>
+                    <a href="/products/category/Clothing"
+                        class="block px-6 py-2 text-primary-200 hover:bg-primary-600 rounded-md transition-colors duration-200">
+                        <i class="ri-shirt-line mr-2"></i>Clothing
+                    </a>
+                    <a href="/products/category/Accessories"
+                        class="block px-6 py-2 text-primary-200 hover:bg-primary-600 rounded-md transition-colors duration-200">
+                        <i class="ri-handbag-line mr-2"></i>Accessories
+                    </a>
+                </div>
+
+                <div class="px-3 py-2">
+                    <form action="" class="relative">
+                        <input type="text" placeholder="Search..."
+                            class="w-full px-4 py-2 pl-10 text-neutral-700 bg-white rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-300">
+                        <i
+                            class="ri-search-line absolute left-3 top-1/2 transform -translate-y-1/2 text-neutral-400"></i>
+                    </form>
+                </div>
+
+                <a href="/users/show-cart"
+                    class="block px-3 py-2 text-white font-medium hover:bg-primary-600 rounded-md transition-colors duration-200">
+                    <i class="ri-shopping-cart-line mr-2"></i>Cart
+                </a>
+
+                <% if(!isLoggedIn){ %>
+                    <a href="/login-register"
+                        class="block px-3 py-2 text-white font-medium hover:bg-primary-600 rounded-md transition-colors duration-200">
+                        <i class="ri-login-circle-line mr-2"></i>Login/Register
+                    </a>
+                    <% } else { %>
+                        <a href="/users/profile"
+                            class="block px-3 py-2 text-white font-medium hover:bg-primary-600 rounded-md transition-colors duration-200">
+                            <i class="ri-user-line mr-2"></i>Profile
+                        </a>
+                        <form action="/logout" method="post" class="block">
+                            <button type="submit"
+                                class="w-full text-left px-3 py-2 text-white font-medium hover:bg-primary-600 rounded-md transition-colors duration-200">
+                                <i class="ri-logout-circle-line mr-2"></i>Logout
+                            </button>
+                        </form>
+                        <% } %>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Add padding to account for fixed navbar -->
+    <div class="pt-16"></div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function () {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Loading overlay functionality
+        function showLoading() {
+            const overlay = document.getElementById('loadingOverlay');
+            if (overlay) {
+                overlay.classList.add('show');
+            }
+        }
+
+        function hideLoading() {
+            const overlay = document.getElementById('loadingOverlay');
+            if (overlay) {
+                overlay.classList.remove('show');
+            }
+        }
+
+        // Show loading on page refresh or navigation
+        window.addEventListener('beforeunload', function () {
+            showLoading();
+        });
+
+        // Show loading when clicking on navigation links
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add loading to all navigation links
+            const navLinks = document.querySelectorAll('a[href]:not([href^="#"]):not([href^="mailto:"]):not([href^="tel:"]):not([target="_blank"])');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    // Don't show loading for external links or same-page anchors
+                    const href = this.getAttribute('href');
+                    if (href && !href.startsWith('#') && !href.startsWith('mailto:') && !href.startsWith('tel:')) {
+                        // Small delay to ensure the click is processed
+                        setTimeout(() => {
+                            showLoading();
+                        }, 50);
+                    }
+                });
+            });
+
+            // Hide loading when page is fully loaded
+            window.addEventListener('load', function () {
+                setTimeout(() => {
+                    hideLoading();
+                }, 100);
+            });
+
+            // Handle browser back/forward buttons
+            window.addEventListener('pageshow', function (event) {
+                if (event.persisted) {
+                    hideLoading();
+                }
+            });
+
+            // Handle form submissions
+            const forms = document.querySelectorAll('form:not([target="_blank"])');
+            forms.forEach(form => {
+                form.addEventListener('submit', function () {
+                    setTimeout(() => {
+                        showLoading();
+                    }, 50);
+                });
+            });
+        });
+    </script>

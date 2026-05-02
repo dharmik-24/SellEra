@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Error - SellEra</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .error-animation {
+            animation: shake 0.5s ease-in-out infinite alternate;
+        }
+        
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(5px); }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .pulse-red {
+            animation: pulseRed 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulseRed {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            50% { box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); }
+        }
+        
+        .slide-up {
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .bounce-in {
+            animation: bounceIn 0.8s ease-out;
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .error-code {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .error-code::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-red-50 via-white to-orange-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-gradient-to-br from-red-600 to-orange-600 rounded-lg flex items-center justify-center">
+                            <i class="ri-shopping-bag-3-line text-white text-lg"></i>
+                        </div>
+                        <span class="text-xl font-bold text-gray-900">SellEra</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="text-gray-600 hover:text-red-600 transition-colors duration-200">
+                        <i class="ri-home-line mr-1"></i>Home
+                    </a>
+                    <a href="/contact" class="text-gray-600 hover:text-red-600 transition-colors duration-200">
+                        <i class="ri-customer-service-line mr-1"></i>Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Error Content -->
+    <main class="flex-1 flex items-center justify-center px-4 py-16">
+        <div class="max-w-4xl mx-auto text-center">
+            <!-- Error Illustration -->
+            <div class="error-animation mb-8">
+                <div class="relative inline-block">
+                    <!-- Large 500 Text -->
+                    <div class="error-code text-9xl md:text-[12rem] font-black gradient-text opacity-20 select-none">
+                        500
+                    </div>
+                    
+                    <!-- Floating Error Icon -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <div class="w-24 h-24 bg-white rounded-full shadow-2xl flex items-center justify-center bounce-in pulse-red">
+                            <i class="ri-error-warning-line text-4xl text-red-600"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Error Message -->
+            <div class="slide-up mb-8">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                    Internal Server Error
+                </h1>
+                <p class="text-xl text-gray-600 mb-2">
+                    Something went wrong on our end.
+                </p>
+                <p class="text-lg text-gray-500">
+                    Our team has been notified and is working to fix this issue.
+                </p>
+            </div>
+            
+            <!-- Error Details -->
+            <div class="slide-up mb-12" style="animation-delay: 0.2s;">
+                <div class="bg-red-50 border border-red-200 rounded-lg p-6 max-w-2xl mx-auto">
+                    <div class="flex items-center mb-4">
+                        <i class="ri-information-line text-red-600 text-xl mr-2"></i>
+                        <h2 class="text-lg font-semibold text-red-800">What happened?</h2>
+                    </div>
+                    <p class="text-red-700 text-left">
+                        We encountered an unexpected error while processing your request. This could be due to:
+                    </p>
+                    <ul class="text-red-700 text-left mt-3 space-y-1">
+                        <li class="flex items-center">
+                            <i class="ri-arrow-right-s-line mr-2"></i>
+                            Temporary server overload
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-arrow-right-s-line mr-2"></i>
+                            Database connectivity issues
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ri-arrow-right-s-line mr-2"></i>
+                            Maintenance in progress
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="slide-up grid grid-cols-1 md:grid-cols-3 gap-6 mb-12" style="animation-delay: 0.4s;">
+                <button onclick="window.location.reload()" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-200">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors duration-300">
+                        <i class="ri-refresh-line text-2xl text-blue-600"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Try Again</h3>
+                    <p class="text-gray-600 text-sm">Refresh the page and try your request again</p>
+                </button>
+                
+                <a href="/" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-green-200">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-green-200 transition-colors duration-300">
+                        <i class="ri-home-line text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Go Home</h3>
+                    <p class="text-gray-600 text-sm">Return to our homepage and start over</p>
+                </a>
+                
+                <a href="/contact" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-purple-200">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-purple-200 transition-colors duration-300">
+                        <i class="ri-customer-service-line text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Contact Support</h3>
+                    <p class="text-gray-600 text-sm">Get help from our technical support team</p>
+                </a>
+            </div>
+            
+            <!-- Status Information -->
+            <div class="slide-up bg-gray-50 rounded-xl p-6 max-w-2xl mx-auto" style="animation-delay: 0.6s;">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800">System Status</h3>
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
+                        <span class="text-sm text-yellow-600 font-medium">Investigating</span>
+                    </div>
+                </div>
+                
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-600">Web Services</span>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-red-400 rounded-full"></div>
+                            <span class="text-sm text-red-600">Degraded</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-600">Database</span>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                            <span class="text-sm text-green-600">Operational</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-600">Payment System</span>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-green-400 rounded-full"></div>
+                            <span class="text-sm text-green-600">Operational</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <p class="text-sm text-gray-600">
+                        <i class="ri-time-line mr-1"></i>
+                        Last updated: <span id="lastUpdated"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-200 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-600">
+                © 2024 SellEra. All rights reserved. | 
+                <a href="/status" class="text-red-600 hover:text-red-700">System Status</a> | 
+                <a href="/contact" class="text-red-600 hover:text-red-700">Report Issue</a>
+            </p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // Update last updated time
+        function updateLastUpdated() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString();
+            document.getElementById('lastUpdated').textContent = timeString;
+        }
+        
+        // Update time every minute
+        updateLastUpdated();
+        setInterval(updateLastUpdated, 60000);
+        
+        // Auto-retry functionality
+        let retryCount = 0;
+        const maxRetries = 3;
+        
+        function autoRetry() {
+            if (retryCount < maxRetries) {
+                retryCount++;
+                setTimeout(() => {
+                    console.log(`Auto-retry attempt ${retryCount}/${maxRetries}`);
+                    // In a real application, you might want to check if the server is back up
+                    // For now, we'll just log the attempt
+                }, 30000 * retryCount); // Exponential backoff
+            }
+        }
+        
+        // Start auto-retry
+        autoRetry();
+        
+        // Add error reporting functionality
+        function reportError() {
+            const errorData = {
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                url: window.location.href,
+                referrer: document.referrer
+            };
+            
+            // In a real application, you would send this to your error tracking service
+            console.log('Error reported:', errorData);
+        }
+        
+        // Report error on page load
+        reportError();
+    </script>
+</body>
+</html>

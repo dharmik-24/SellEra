@@ -1,0 +1,30 @@
+
+<%- include('../partials/head.ejs') %>
+    <div class="top-space"></div>
+
+    <div class="new-form-grid">
+        <h2>Add Review</h2>
+        <form id="reviewForm" method="post" action="/reviews/<%=id%>" novalidate>
+            <div>
+                <label class="form-label" for="star">Star Rating:</label>
+                <select class="form-control" id="star" name="review[star]">
+                    <option value="">Select Rating</option>
+                    <option value="1">1 Star</option>
+                    <option value="2">2 Stars</option>
+                    <option value="3">3 Stars</option>
+                    <option value="4">4 Stars</option>
+                    <option value="5">5 Stars</option>
+                </select>
+                <div class="error" id="starError"></div>
+            </div>
+
+            <div>
+                <label for="review">Review:</label>
+                <textarea class="form-control" id="review" name="review[review]"></textarea>
+                <div class="error" id="reviewError"></div>
+            </div>
+
+            <button type="submit" class="review-btn">Submit Review</button>
+        </form>
+    </div>
+<%- include('../partials/footer.ejs') %>

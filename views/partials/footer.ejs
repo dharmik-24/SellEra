@@ -1,0 +1,162 @@
+<!-- Footer -->
+<footer class="bg-gradient-to-r from-neutral-900 to-neutral-800 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Left Section -->
+            <div class="space-y-6">
+                <div class="flex items-center space-x-3">
+                    <span class="text-3xl">🛍️</span>
+                    <h2 class="text-2xl font-bold font-display text-white">SellEra</h2>
+                </div>
+
+                <h3 class="text-xl font-semibold text-primary-300">
+                    Quality, Style & Innovation – Delivered to Your Doorstep!
+                </h3>
+
+                <p class="text-neutral-300 leading-relaxed max-w-md">
+                    Shop the latest fashion, accessories, and electronics with ease. We offer top-quality products,
+                    secure payments, and fast shipping to enhance your shopping experience. Stay trendy, stay connected!
+                </p>
+
+                <!-- Quick Links -->
+                <div class="grid grid-cols-2 gap-4 mt-8">
+                    <div>
+                        <h4 class="font-semibold text-white mb-3">Quick Links</h4>
+                        <ul class="space-y-2 text-neutral-300">
+                            <li><a href="/" class="hover:text-primary-300 transition-colors duration-200">Home</a></li>
+                            <li><a href="/products"
+                                    class="hover:text-primary-300 transition-colors duration-200">Products</a></li>
+                            <li><a href="/users/show-cart"
+                                    class="hover:text-primary-300 transition-colors duration-200">Cart</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-white mb-3">Categories</h4>
+                        <ul class="space-y-2 text-neutral-300">
+                            <li><a href="/products/category/Electronics"
+                                    class="hover:text-primary-300 transition-colors duration-200">Electronics</a></li>
+                            <li><a href="/products/category/Clothing"
+                                    class="hover:text-primary-300 transition-colors duration-200">Clothing</a></li>
+                            <li><a href="/products/category/Accessories"
+                                    class="hover:text-primary-300 transition-colors duration-200">Accessories</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Section -->
+            <div class="space-y-6 lg:text-right">
+                <div class="space-y-4">
+                    <h3
+                        class="text-xl font-semibold text-white flex items-center justify-start lg:justify-end space-x-2">
+                        <span>Stay Connected</span>
+                        <i class="ri-arrow-right-line text-primary-300"></i>
+                    </h3>
+
+                    <!-- Social Media Icons -->
+                    <div class="flex space-x-4 justify-start lg:justify-end">
+                        <a href="#"
+                            class="group bg-neutral-700 hover:bg-primary-600 p-3 rounded-full transition-all duration-300 transform hover:scale-110">
+                            <i class="ri-instagram-line text-xl group-hover:text-white"></i>
+                        </a>
+                        <a href="#"
+                            class="group bg-neutral-700 hover:bg-primary-600 p-3 rounded-full transition-all duration-300 transform hover:scale-110">
+                            <i class="ri-twitter-x-line text-xl group-hover:text-white"></i>
+                        </a>
+                        <a href="#"
+                            class="group bg-neutral-700 hover:bg-primary-600 p-3 rounded-full transition-all duration-300 transform hover:scale-110">
+                            <i class="ri-facebook-line text-xl group-hover:text-white"></i>
+                        </a>
+                        <a href="#"
+                            class="group bg-neutral-700 hover:bg-primary-600 p-3 rounded-full transition-all duration-300 transform hover:scale-110">
+                            <i class="ri-linkedin-line text-xl group-hover:text-white"></i>
+                        </a>
+                    </div>
+
+                    <!-- Newsletter Signup -->
+                    <div class="bg-neutral-800 p-6 rounded-lg border border-neutral-700">
+                        <h4 class="font-semibold text-white mb-3 text-left lg:text-right">Subscribe to our Newsletter
+                        </h4>
+                        <form class="flex flex-col sm:flex-row gap-3">
+                            <input type="email" placeholder="Enter your email"
+                                class="flex-1 px-4 py-2 bg-neutral-700 border border-neutral-600 rounded-lg text-white placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-200">
+                            <button type="submit"
+                                class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg font-medium transition-all duration-200 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-neutral-800">
+                                Subscribe
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Section -->
+        <div class="border-t border-neutral-700 mt-12 pt-8">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div class="text-neutral-400 text-sm">
+                    © 2024 SellEra. All rights reserved. Built with ❤️ for amazing shopping experiences.
+                </div>
+                <div class="flex space-x-6 text-sm text-neutral-400">
+                    <a href="#" class="hover:text-primary-300 transition-colors duration-200">Privacy Policy</a>
+                    <a href="#" class="hover:text-primary-300 transition-colors duration-200">Terms of Service</a>
+                    <a href="#" class="hover:text-primary-300 transition-colors duration-200">Support</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="../javascripts/ipage.js"></script>
+<script>
+    document.getElementById('reviewForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        let isValid = true;
+
+        function showError(inputId, message) {
+            const inputElement = document.getElementById(inputId);
+            const errorElement = document.getElementById(inputId + 'Error');
+
+            errorElement.textContent = message;
+            inputElement.classList.add('shake', 'input-error');
+
+            setTimeout(() => {
+                inputElement.classList.remove('shake');
+            }, 300);
+        }
+
+        function clearError(inputId) {
+            const inputElement = document.getElementById(inputId);
+            const errorElement = document.getElementById(inputId + 'Error');
+
+            errorElement.textContent = '';
+            inputElement.classList.remove('input-error');
+        }
+
+        const star = document.getElementById('star').value;
+        if (star === '') {
+            showError('star', 'Please select a star rating.');
+            isValid = false;
+        } else {
+            clearError('star');
+        }
+
+        const reviewText = document.getElementById('review').value.trim();
+        if (reviewText.length < 5) {
+            showError('review', 'Review must be at least 5 characters.');
+            isValid = false;
+        } else {
+            clearError('review');
+        }
+
+
+
+        if (isValid) {
+            this.submit();
+        }
+    });
+</script>
+</body>
+
+</html>

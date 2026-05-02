@@ -1,0 +1,327 @@
+<%- include('../partials/vendorHead.ejs') %>
+
+    <!-- Edit Vendor Profile Content -->
+    <div class="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-100 py-12">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-neutral-900 mb-2">Edit Vendor Profile</h1>
+                <p class="text-neutral-600">Update your business information and profile settings</p>
+            </div>
+
+            <!-- Edit Form -->
+            <div class="bg-white rounded-2xl shadow-xl border border-neutral-200 overflow-hidden">
+                <!-- Error Message Display -->
+                <div id="errorDisplay" class="hidden">
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-4 m-6">
+                        <div class="flex items-center">
+                            <i class="ri-error-warning-line text-red-600 mr-2"></i>
+                            <span class="text-red-800 font-medium" id="errorText"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <form action="/vendors/<%= editVendor._id %>?_method=PATCH" method="POST" enctype="multipart/form-data"
+                    class="p-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Profile Picture Section -->
+                        <div class="lg:col-span-1">
+                            <div class="text-center">
+                                <div class="relative inline-block">
+                                    <% const editVendorProfileImageUrl=getProfileImageUrl(editVendor); const
+                                        editVendorIsDefaultImage=editVendorProfileImageUrl==='/images/default.jpg' ; %>
+                                        <% if (!editVendorIsDefaultImage) { %>
+                                            <img id="profilePreview" src="<%= editVendorProfileImageUrl %>"
+                                                alt="<%= editVendor.name %>"
+                                                class="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover">
+                                            <% } else { %>
+                                                <div id="profilePreview"
+                                                    class="w-32 h-32 rounded-full border-4 border-white shadow-lg bg-primary-600 flex items-center justify-center">
+                                                    <span class="text-4xl font-bold text-white">
+                                                        <%= editVendor.name ? editVendor.name.charAt(0).toUpperCase()
+                                                            : 'V' %>
+                                                    </span>
+                                                </div>
+                                                <% } %>
+
+                                                    <label for="profileImage"
+                                                        class="absolute bottom-0 right-0 w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center cursor-pointer hover:bg-primary-700 transition-colors duration-200">
+                                                        <i class="ri-camera-line text-white text-sm"></i>
+                                                    </label>
+                                </div>
+                                <input type="file" id="profileImage" name="vendor[profileImage]" accept="image/*"
+                                    class="hidden">
+                                <p class="text-sm text-neutral-500 mt-4">Click the camera icon to change your profile
+                                    picture</p>
+                                <p class="text-xs text-neutral-400 mt-1">JPG, PNG or WEBP (Max 2MB)</p>
+                            </div>
+                        </div>
+
+                        <!-- Form Fields -->
+                        <div class="lg:col-span-2 space-y-6">
+                            <!-- Business Name -->
+                            <div class="form-group">
+                                <label for="name" class="block text-sm font-medium text-neutral-700 mb-2">
+                                    <i class="ri-store-line mr-2 text-primary-600"></i>Business Name
+                                </label>
+                                <input type="text" id="name" name="vendor[name]" value="<%= editVendor.name %>"
+                                    class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200"
+                                    placeholder="Enter your business name" required>
+                                <div class="error-message hidden text-red-500 text-sm mt-1" id="nameError">
+                                    <i class="ri-error-warning-line mr-1"></i><span></span>
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="form-group">
+                                <label for="email" class="block text-sm font-medium text-neutral-700 mb-2">
+                                    <i class="ri-mail-line mr-2 text-primary-600"></i>Email Address
+                                </label>
+                                <input type="email" id="email" name="vendor[email]" value="<%= editVendor.email %>"
+                                    class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200"
+                                    placeholder="Enter your email address" required>
+                                <div class="error-message hidden text-red-500 text-sm mt-1" id="emailError">
+                                    <i class="ri-error-warning-line mr-1"></i><span></span>
+                                </div>
+                            </div>
+
+                            <!-- Description -->
+                            <div class="form-group">
+                                <label for="description" class="block text-sm font-medium text-neutral-700 mb-2">
+                                    <i class="ri-file-text-line mr-2 text-primary-600"></i>Business Description
+                                </label>
+                                <textarea id="description" name="vendor[description]" rows="4"
+                                    class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 resize-none"
+                                    placeholder="Describe your business, products, and services..."><%= editVendor.description || '' %></textarea>
+                                <div class="error-message hidden text-red-500 text-sm mt-1" id="descriptionError">
+                                    <i class="ri-error-warning-line mr-1"></i><span></span>
+                                </div>
+                            </div>
+
+                            <!-- Password Section -->
+                            <div class="border-t border-neutral-200 pt-6">
+                                <h3 class="text-lg font-semibold text-neutral-900 mb-4 flex items-center">
+                                    <i class="ri-lock-line mr-2 text-primary-600"></i>
+                                    Change Password (Optional)
+                                </h3>
+                                <div class="space-y-4">
+                                    <div class="form-group">
+                                        <label for="currentPassword"
+                                            class="block text-sm font-medium text-neutral-700 mb-2">
+                                            Current Password
+                                        </label>
+                                        <div class="relative">
+                                            <input type="password" id="currentPassword" name="vendor[currentPassword]"
+                                                class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 pr-12"
+                                                placeholder="Enter current password">
+                                            <button type="button" onclick="togglePassword('currentPassword')"
+                                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600">
+                                                <i id="currentPasswordToggle" class="ri-eye-line"></i>
+                                            </button>
+                                        </div>
+                                        <div class="error-message hidden text-red-500 text-sm mt-1"
+                                            id="currentPasswordError">
+                                            <i class="ri-error-warning-line mr-1"></i><span></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="newPassword"
+                                            class="block text-sm font-medium text-neutral-700 mb-2">
+                                            New Password
+                                        </label>
+                                        <div class="relative">
+                                            <input type="password" id="newPassword" name="vendor[newPassword]"
+                                                class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 pr-12"
+                                                placeholder="Enter new password">
+                                            <button type="button" onclick="togglePassword('newPassword')"
+                                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600">
+                                                <i id="newPasswordToggle" class="ri-eye-line"></i>
+                                            </button>
+                                        </div>
+                                        <div class="error-message hidden text-red-500 text-sm mt-1"
+                                            id="newPasswordError">
+                                            <i class="ri-error-warning-line mr-1"></i><span></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="confirmPassword"
+                                            class="block text-sm font-medium text-neutral-700 mb-2">
+                                            Confirm New Password
+                                        </label>
+                                        <div class="relative">
+                                            <input type="password" id="confirmPassword" name="vendor[confirmPassword]"
+                                                class="w-full px-4 py-3 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200 pr-12"
+                                                placeholder="Confirm new password">
+                                            <button type="button" onclick="togglePassword('confirmPassword')"
+                                                class="absolute right-3 top-1/2 transform -translate-y-1/2 text-neutral-400 hover:text-neutral-600">
+                                                <i id="confirmPasswordToggle" class="ri-eye-line"></i>
+                                            </button>
+                                        </div>
+                                        <div class="error-message hidden text-red-500 text-sm mt-1"
+                                            id="confirmPasswordError">
+                                            <i class="ri-error-warning-line mr-1"></i><span></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-neutral-200">
+                                <button type="submit"
+                                    class="flex-1 bg-primary-600 hover:bg-primary-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center">
+                                    <i class="ri-save-line mr-2"></i>
+                                    Update Profile
+                                </button>
+                                <a href="/vendors/settings"
+                                    class="flex-1 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 px-6 py-3 rounded-lg font-medium transition-colors duration-200 flex items-center justify-center">
+                                    <i class="ri-arrow-left-line mr-2"></i>
+                                    Cancel
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Profile image preview functionality
+        document.getElementById('profileImage').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const preview = document.getElementById('profilePreview');
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Profile Preview" class="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Password toggle functionality
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const toggle = document.getElementById(inputId + 'Toggle');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                toggle.classList.remove('ri-eye-line');
+                toggle.classList.add('ri-eye-off-line');
+            } else {
+                input.type = 'password';
+                toggle.classList.remove('ri-eye-off-line');
+                toggle.classList.add('ri-eye-line');
+            }
+        }
+
+        // Form validation
+        document.querySelector('form').addEventListener('submit', function (event) {
+            let isValid = true;
+
+            function showError(inputId, message) {
+                const errorElement = document.getElementById(inputId + 'Error');
+                const inputElement = document.getElementById(inputId);
+
+                errorElement.querySelector('span').textContent = message;
+                errorElement.classList.remove('hidden');
+                inputElement.classList.add('border-red-500');
+                isValid = false;
+            }
+
+            function clearError(inputId) {
+                const errorElement = document.getElementById(inputId + 'Error');
+                const inputElement = document.getElementById(inputId);
+
+                errorElement.classList.add('hidden');
+                inputElement.classList.remove('border-red-500');
+            }
+
+            // Clear all previous errors
+            ['name', 'email', 'description', 'currentPassword', 'newPassword', 'confirmPassword'].forEach(clearError);
+
+            // Business Name Validation
+            const name = document.getElementById('name').value.trim();
+            if (name.length < 2) {
+                showError('name', 'Business name must be at least 2 characters.');
+            }
+
+            // Email Validation
+            const email = document.getElementById('email').value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError('email', 'Please enter a valid email address.');
+            }
+
+            // Password validation (only if passwords are provided)
+            const currentPassword = document.getElementById('currentPassword').value;
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (currentPassword || newPassword || confirmPassword) {
+                if (!currentPassword) {
+                    showError('currentPassword', 'Current password is required to change password.');
+                }
+                if (newPassword.length < 6) {
+                    showError('newPassword', 'New password must be at least 6 characters.');
+                }
+                if (newPassword !== confirmPassword) {
+                    showError('confirmPassword', 'Passwords do not match.');
+                }
+            }
+
+            // Image validation
+            const imageInput = document.getElementById('profileImage');
+            if (imageInput.files.length > 0) {
+                const file = imageInput.files[0];
+                const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+                const maxSize = 2 * 1024 * 1024; // 2MB
+
+                if (!allowedTypes.includes(file.type)) {
+                    showError('profileImage', 'Please upload a valid image (JPG, PNG, or WEBP).');
+                }
+                if (file.size > maxSize) {
+                    showError('profileImage', 'Image size must be less than 2MB.');
+                }
+            }
+
+            // If validation fails, prevent form submission
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+
+        // Handle URL parameters for error messages
+        function handleUrlError() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get('error');
+
+            if (error) {
+                const errorDisplay = document.getElementById('errorDisplay');
+                const errorText = document.getElementById('errorText');
+
+                errorText.textContent = decodeURIComponent(error);
+                errorDisplay.classList.remove('hidden');
+
+                // Auto-hide error after 8 seconds
+                setTimeout(() => {
+                    errorDisplay.classList.add('hidden');
+                }, 8000);
+
+                // Clear URL parameters to prevent showing error on refresh
+                const newUrl = window.location.pathname;
+                window.history.replaceState({}, document.title, newUrl);
+            }
+        }
+
+        // Initialize error handling when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            handleUrlError();
+        });
+    </script>
+
+    <%- include('../partials/vendorFooter.ejs') %>
+
+        </html>

@@ -1,0 +1,36 @@
+{
+  "name": "sellera",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-css": "npx tailwindcss -i ./public/stylesheets/tailwind.css -o ./public/stylesheets/output.css --watch",
+    "build-css-prod": "npx tailwindcss -i ./public/stylesheets/tailwind.css -o ./public/stylesheets/output.css --minify",
+    "dev": "npm run build-css & node index.js",
+    "start": "npm run build-css-prod && node index.js",
+    "migrate-cloudinary": "node scripts/migrateToCloudinary.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cloudinary": "^2.7.0",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.2.0",
+    "ejs": "^3.1.10",
+    "ejs-lint": "^1.1.0",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "faker": "^6.6.6",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
+    "method-override": "^3.0.0",
+    "mongo": "^0.1.0",
+    "mongoose": "^8.10.0",
+    "multer": "^1.4.5-lts.1",
+    "multer-storage-cloudinary": "^4.0.0"
+  }
+}

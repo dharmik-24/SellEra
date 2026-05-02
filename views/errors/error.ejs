@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title || 'Error' %> - SellEra</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .error-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, 
+                <%= statusCode === 404 ? '#3b82f6, #1d4ed8' : 
+                    statusCode === 500 ? '#ef4444, #dc2626' : 
+                    statusCode === 403 ? '#f59e0b, #d97706' : 
+                    '#6b7280, #374151' %>);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .slide-up {
+            animation: slideUp 0.6s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .bounce-in {
+            animation: bounceIn 0.8s ease-out;
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        .theme-bg {
+            background: linear-gradient(135deg, 
+                <%= statusCode === 404 ? 'from-blue-50 via-white to-purple-50' : 
+                    statusCode === 500 ? 'from-red-50 via-white to-orange-50' : 
+                    statusCode === 403 ? 'from-yellow-50 via-white to-orange-50' : 
+                    'from-gray-50 via-white to-gray-50' %>);
+        }
+        
+        .theme-color {
+            color: <%= statusCode === 404 ? '#3b82f6' : 
+                      statusCode === 500 ? '#ef4444' : 
+                      statusCode === 403 ? '#f59e0b' : 
+                      '#6b7280' %>;
+        }
+        
+        .theme-bg-color {
+            background-color: <%= statusCode === 404 ? '#3b82f6' : 
+                                 statusCode === 500 ? '#ef4444' : 
+                                 statusCode === 403 ? '#f59e0b' : 
+                                 '#6b7280' %>;
+        }
+    </style>
+</head>
+<body class="min-h-screen theme-bg">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="/" class="flex items-center space-x-2">
+                        <div class="w-8 h-8 theme-bg-color rounded-lg flex items-center justify-center">
+                            <i class="ri-shopping-bag-3-line text-white text-lg"></i>
+                        </div>
+                        <span class="text-xl font-bold text-gray-900">SellEra</span>
+                    </a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="text-gray-600 hover:text-gray-900 transition-colors duration-200">
+                        <i class="ri-home-line mr-1"></i>Home
+                    </a>
+                    <% if (statusCode === 403) { %>
+                        <a href="/login-register" class="text-gray-600 hover:text-gray-900 transition-colors duration-200">
+                            <i class="ri-login-circle-line mr-1"></i>Login
+                        </a>
+                    <% } %>
+                    <a href="/contact" class="text-gray-600 hover:text-gray-900 transition-colors duration-200">
+                        <i class="ri-customer-service-line mr-1"></i>Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Main Error Content -->
+    <main class="flex-1 flex items-center justify-center px-4 py-16">
+        <div class="max-w-4xl mx-auto text-center">
+            <!-- Error Illustration -->
+            <div class="error-animation mb-8">
+                <div class="relative inline-block">
+                    <!-- Large Error Code -->
+                    <div class="text-9xl md:text-[12rem] font-black gradient-text opacity-20 select-none">
+                        <%= statusCode || '???' %>
+                    </div>
+                    
+                    <!-- Floating Icon -->
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                        <div class="w-24 h-24 bg-white rounded-full shadow-2xl flex items-center justify-center bounce-in">
+                            <i class="<%= 
+                                statusCode === 404 ? 'ri-search-line' : 
+                                statusCode === 500 ? 'ri-error-warning-line' : 
+                                statusCode === 403 ? 'ri-lock-line' : 
+                                'ri-alert-line' 
+                            %> text-4xl theme-color"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Error Message -->
+            <div class="slide-up mb-8">
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                    <%= title || 'Something went wrong' %>
+                </h1>
+                <p class="text-xl text-gray-600 mb-2">
+                    <%= message || 'We encountered an unexpected error.' %>
+                </p>
+                <% if (description) { %>
+                    <p class="text-lg text-gray-500">
+                        <%= description %>
+                    </p>
+                <% } %>
+            </div>
+            
+            <!-- Error Details (if provided) -->
+            <% if (details) { %>
+                <div class="slide-up mb-12" style="animation-delay: 0.2s;">
+                    <div class="bg-gray-50 border border-gray-200 rounded-lg p-6 max-w-2xl mx-auto">
+                        <div class="flex items-center mb-4">
+                            <i class="ri-information-line theme-color text-xl mr-2"></i>
+                            <h2 class="text-lg font-semibold text-gray-800">Additional Information</h2>
+                        </div>
+                        <div class="text-gray-700 text-left">
+                            <%= details %>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+            
+            <!-- Action Buttons -->
+            <div class="slide-up grid grid-cols-1 md:grid-cols-3 gap-6 mb-12" style="animation-delay: 0.4s;">
+                <% if (statusCode === 500) { %>
+                    <button onclick="window.location.reload()" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-200">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors duration-300">
+                            <i class="ri-refresh-line text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Try Again</h3>
+                        <p class="text-gray-600 text-sm">Refresh the page and try again</p>
+                    </button>
+                <% } else if (statusCode === 403) { %>
+                    <a href="/login-register" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-200">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors duration-300">
+                            <i class="ri-login-circle-line text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Sign In</h3>
+                        <p class="text-gray-600 text-sm">Log in to access this content</p>
+                    </a>
+                <% } else { %>
+                    <button onclick="history.back()" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-200">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-blue-200 transition-colors duration-300">
+                            <i class="ri-arrow-left-line text-2xl text-blue-600"></i>
+                        </div>
+                        <h3 class="text-lg font-semibold text-gray-900 mb-2">Go Back</h3>
+                        <p class="text-gray-600 text-sm">Return to the previous page</p>
+                    </button>
+                <% } %>
+                
+                <a href="/" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-green-200">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-green-200 transition-colors duration-300">
+                        <i class="ri-home-line text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Go Home</h3>
+                    <p class="text-gray-600 text-sm">Return to our homepage</p>
+                </a>
+                
+                <a href="/contact" class="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-purple-200">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-purple-200 transition-colors duration-300">
+                        <i class="ri-customer-service-line text-2xl text-purple-600"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Get Help</h3>
+                    <p class="text-gray-600 text-sm">Contact our support team</p>
+                </a>
+            </div>
+            
+            <!-- Quick Links -->
+            <div class="slide-up" style="animation-delay: 0.6s;">
+                <h3 class="text-xl font-semibold text-gray-800 mb-6">Quick Links</h3>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <a href="/products" class="bg-blue-100 hover:bg-blue-200 text-blue-800 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200">
+                        <i class="ri-store-line mr-1"></i>Products
+                    </a>
+                    <a href="/categories" class="bg-green-100 hover:bg-green-200 text-green-800 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200">
+                        <i class="ri-list-check mr-1"></i>Categories
+                    </a>
+                    <a href="/about" class="bg-purple-100 hover:bg-purple-200 text-purple-800 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200">
+                        <i class="ri-information-line mr-1"></i>About Us
+                    </a>
+                    <a href="/faq" class="bg-yellow-100 hover:bg-yellow-200 text-yellow-800 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200">
+                        <i class="ri-question-line mr-1"></i>FAQ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-200 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-600">
+                © 2024 SellEra. All rights reserved. | 
+                <a href="/privacy" class="theme-color hover:underline">Privacy Policy</a> | 
+                <a href="/terms" class="theme-color hover:underline">Terms of Service</a>
+            </p>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // Error reporting
+        function reportError() {
+            const errorData = {
+                statusCode: <%= statusCode || 'null' %>,
+                timestamp: new Date().toISOString(),
+                userAgent: navigator.userAgent,
+                url: window.location.href,
+                referrer: document.referrer
+            };
+            
+            console.log('Error reported:', errorData);
+            // In production, send to error tracking service
+        }
+        
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            reportError();
+            
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'h' && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    window.location.href = '/';
+                } else if (e.key === 'b' && (e.ctrlKey || e.metaKey)) {
+                    e.preventDefault();
+                    history.back();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
